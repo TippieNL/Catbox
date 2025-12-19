@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tools · Catbox-style Host</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="brand-mark">C</div>
+      <span>Catbox-style Host</span>
+    </div>
+    <nav>
+      <a href="/index.html">Upload</a>
+      <a href="/temporary.html">Temporary</a>
+      <a href="/dashboard.html">Dashboard</a>
+      <a href="/faq.html">FAQ</a>
+      <a href="/tools.html">Tools</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/legal.html">Legal</a>
+      <a href="/api-docs.html">API Docs</a>
+      <button id="theme-toggle" class="action" type="button">🌙 Dark</button>
+    </nav>
+  </header>
+  <main class="grid">
+    <section class="hero">
+      <h1>Tools & extensions</h1>
+      <p>Plug the API into your workflow. Community clients welcome.</p>
+    </section>
+
+    <section class="card grid" style="gap:10px;">
+      <div>
+        <h3>Browser helper</h3>
+        <p>Use any fetch-capable script to POST /api/upload with a base64 payload. The response returns a direct link.</p>
+        <a class="action" href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API" target="_blank">View fetch docs</a>
+      </div>
+      <div>
+        <h3>CLI snippet</h3>
+        <pre style="white-space: pre-wrap; background: rgba(90,93,240,0.08); padding:12px; border-radius:12px;">
+node -e "const fs = require('node:fs');
+const data = fs.readFileSync('file.jpg').toString('base64');
+fetch('https://your-host/api/upload',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({filename:'file.jpg',content:data})}).then(r=>r.json()).then(console.log);"</pre>
+      </div>
+      <div>
+        <h3>Community clients</h3>
+        <p>List your client here. Link shortener API lives at POST /shorten.</p>
+      </div>
+    </section>
+  </main>
+  <footer>Bring-your-own client. Documented API endpoints keep it simple.</footer>
+  <script src="/app.js"></script>
+</body>
+</html>
