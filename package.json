@@ -1,0 +1,14 @@
+{
+  "name": "catbox",
+  "version": "1.0.0",
+  "description": "Modernized Catbox-style host with anonymous uploads and temporary files",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node -e \"console.log('no automated tests yet')\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}

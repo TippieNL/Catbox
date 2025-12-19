@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact · Catbox-style Host</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="brand-mark">C</div>
+      <span>Catbox-style Host</span>
+    </div>
+    <nav>
+      <a href="/index.html">Upload</a>
+      <a href="/temporary.html">Temporary</a>
+      <a href="/dashboard.html">Dashboard</a>
+      <a href="/faq.html">FAQ</a>
+      <a href="/tools.html">Tools</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/legal.html">Legal</a>
+      <a href="/api-docs.html">API Docs</a>
+      <button id="theme-toggle" class="action" type="button">🌙 Dark</button>
+    </nav>
+  </header>
+  <main class="grid">
+    <section class="hero">
+      <h1>Contact</h1>
+      <p>Drop a message about abuse, takedowns, or collaboration.</p>
+    </section>
+
+    <section class="card">
+      <form class="grid" style="gap:10px;">
+        <input type="text" name="name" placeholder="Your name" required />
+        <input type="email" name="email" placeholder="you@example.com" required />
+        <textarea name="message" rows="4" placeholder="Message" required></textarea>
+        <button class="action" type="button" onclick="this.textContent='Sent!';">Send</button>
+        <div class="small">Form is a front-end stub. Wire it to your email provider or ticketing system.</div>
+      </form>
+    </section>
+  </main>
+  <footer>We respond quickly to abuse and DMCA requests.</footer>
+  <script src="/app.js"></script>
+</body>
+</html>

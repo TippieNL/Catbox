@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>API Docs · Catbox-style Host</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="brand-mark">C</div>
+      <span>Catbox-style Host</span>
+    </div>
+    <nav>
+      <a href="/index.html">Upload</a>
+      <a href="/temporary.html">Temporary</a>
+      <a href="/dashboard.html">Dashboard</a>
+      <a href="/faq.html">FAQ</a>
+      <a href="/tools.html">Tools</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/legal.html">Legal</a>
+      <a href="/api-docs.html">API Docs</a>
+      <button id="theme-toggle" class="action" type="button">🌙 Dark</button>
+    </nav>
+  </header>
+  <main class="grid">
+    <section class="hero">
+      <h1>API reference</h1>
+      <p>Simple endpoints for uploads, deletes, and short links.</p>
+    </section>
+
+    <section class="card grid" style="gap:12px;">
+      <div>
+        <h3>POST /api/upload</h3>
+        <p>JSON payload: { filename, content (base64), temporary?: boolean, expiryHours?: number }. Returns file_url, delete_token, expires_at.</p>
+      </div>
+      <div>
+        <h3>POST /api/delete</h3>
+        <p>JSON payload: { fileId, deleteToken }. Requires owner session or matching delete token.</p>
+      </div>
+      <div>
+        <h3>POST /api/register & /api/login</h3>
+        <p>Provide email and password. Successful requests set an HttpOnly session cookie for dashboard access.</p>
+      </div>
+      <div>
+        <h3>GET /api/me</h3>
+        <p>Returns the authenticated user plus their files and short links.</p>
+      </div>
+      <div>
+        <h3>POST /shorten</h3>
+        <p>Body: { url }. Response includes a short_url and code. Redirects live at /s/:code.</p>
+      </div>
+    </section>
+  </main>
+  <footer>Endpoints stay lean to match the no-nonsense ethos.</footer>
+  <script src="/app.js"></script>
+</body>
+</html>
