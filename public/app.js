@@ -117,6 +117,24 @@
   }
   ensureAuthForms();
 
+  const changePasswordForm = document.querySelector('#change-password-form');
+  if (changePasswordForm) {
+    changePasswordForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const statusEl = changePasswordForm.querySelector('[data-status]');
+      const formData = new FormData(changePasswordForm);
+      const payload = Object.fromEntries(formData.entries());
+      const res = await fetch('/api/change-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      statusEl.textContent = data.error || 'Password updated';
+      if (res.ok) changePasswordForm.reset();
+    });
+  }
+
   async function loadDashboard() {
     const table = document.querySelector('#file-table');
     if (!table) return;
