@@ -23,9 +23,10 @@
       <a href="/legal.html">Legal</a>
       <a href="/api-docs.html">API Docs</a>
       <button id="theme-toggle" class="action" type="button">🌙 Dark</button>
+      <button id="logout-button" class="action" type="button">Logout</button>
     </nav>
   </header>
-  <main class="grid">
+  <main class="grid" data-dashboard>
     <section class="hero">
       <h1>Your dashboard</h1>
       <p>View uploads, temporary expiries, and link shortener history.</p>
@@ -108,6 +109,27 @@
           <button class="action" type="button">Log out</button>
           <div class="small">Empty state: No active session.</div>
         </div>
+        <div class="input-row" style="align-items:flex-start; gap:12px;">
+          <select id="album-select" aria-label="Select album">
+            <option value="">Select album…</option>
+          </select>
+          <button id="add-to-album" class="action" type="button">Add to album</button>
+          <div id="file-status" class="small"></div>
+        </div>
+        <div id="file-list" class="file-grid"></div>
+      </div>
+
+      <div class="card" id="albums-card">
+        <div class="input-row" style="justify-content: space-between; align-items:center;">
+          <h3 style="margin:0;">Albums</h3>
+          <div class="small">Organize uploads for quick sharing.</div>
+        </div>
+        <form id="album-form" class="input-row" style="align-items:flex-start; gap:12px;">
+          <input type="text" name="title" placeholder="New album title" required />
+          <button class="action" type="submit">Create</button>
+          <div class="small" data-status></div>
+        </form>
+        <div id="album-list" class="album-grid"></div>
       </div>
     </section>
   </main>
