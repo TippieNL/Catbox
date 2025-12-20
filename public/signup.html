@@ -1,4 +1,3 @@
-<!-- Wireframe: header/nav, hero intro, signup card with form + login link, footer -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -16,7 +15,7 @@
     <nav>
       <a href="/index.html">Upload</a>
       <a href="/temporary.html">Temporary</a>
-      <a href="/dashboard.html">Dashboard</a>
+      <a href="/dashboard">Dashboard</a>
       <a href="/images.html">Images</a>
       <a href="/faq.html">FAQ</a>
       <a href="/tools.html">Tools</a>
@@ -26,27 +25,23 @@
       <button id="theme-toggle" class="action" type="button">🌙 Dark</button>
     </nav>
   </header>
-  <main>
+  <main class="grid">
     <section class="hero">
       <h1>Create your account</h1>
-      <p>Register to keep track of uploads, expiring files, and short links.</p>
+      <p>Register once to track uploads and manage short links.</p>
     </section>
-
     <section class="card" style="max-width:480px;">
-      <h3>Sign up</h3>
-      <form id="signup-form" class="grid" style="gap:8px;">
+      <h3>Create account</h3>
+      <form id="register-form" class="grid" style="gap:8px;">
         <input type="email" name="email" placeholder="you@example.com" required />
         <input type="password" name="password" placeholder="Password" required />
-        <input type="password" name="confirmPassword" placeholder="Confirm password" required />
-        <button class="action" type="submit">Create account</button>
+        <button class="action" type="submit">Register</button>
         <div class="small" data-status></div>
       </form>
-      <div class="small" style="margin-top:12px;">
-        Already have an account? <a href="/login">Log in</a>
-      </div>
+      <p class="small" style="margin-top:12px;">Already have an account? <a href="/login">Log in</a>.</p>
     </section>
   </main>
-  <footer>Register once and manage uploads from your dashboard.</footer>
+  <footer>Register to unlock your dashboard.</footer>
   <script src="/app.js"></script>
 </body>
 </html>

@@ -37,6 +37,12 @@ function sendHtml(res, status, html) {
   res.end(html);
 }
 
+function sendHtmlFile(res, status, filename) {
+  const filePath = path.join(PUBLIC_DIR, filename);
+  const html = fs.readFileSync(filePath, 'utf-8');
+  sendHtml(res, status, html);
+}
+
 function parseCookies(req) {
   const header = req.headers.cookie || '';
   return Object.fromEntries(header.split(';').map((c) => c.trim().split('=').map(decodeURIComponent)).filter(([k]) => k));
@@ -249,6 +255,29 @@ function router(req, res) {
 
   if (serveStoredFile(req, res)) return;
   if (handleShortRedirect(req, res, parsed)) return;
+  if (req.method === 'GET' && parsed.pathname === '/login') {
+    sendHtmlFile(res, 200, 'login.html');
+    return;
+  }
+  if (req.method === 'GET' && parsed.pathname === '/signup') {
+    sendHtmlFile(res, 200, 'signup.html');
+    return;
+  }
+  if (req.method === 'GET' && parsed.pathname === '/dashboard') {
+    const user = requireAuth(req);
+    if (!user) {
+      res.writeHead(302, { Location: '/login' });
+      res.end();
+      return;
+    }
+    sendHtmlFile(res, 200, 'dashboard.html');
+    return;
+  }
+  if (req.method === 'GET' && parsed.pathname === '/dashboard.html') {
+    res.writeHead(302, { Location: '/dashboard' });
+    res.end();
+    return;
+  }
   if (parsed.pathname.startsWith('/api/') || parsed.pathname === '/shorten') {
     const handled = handleApi(req, res, parsed);
     if (handled !== false) return;
