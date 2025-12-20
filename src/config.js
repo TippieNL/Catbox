@@ -5,6 +5,7 @@ const DATA_DIR = path.resolve(process.env.DATA_DIR || path.join(__dirname, '..',
 const FILE_DIR = path.resolve(process.env.FILE_DIR || path.join(__dirname, '..', 'storage', 'files'));
 const DENY_EXTENSIONS = (process.env.DENY_EXTENSIONS || '.exe,.bat,.cmd,.sh').split(',').map((e) => e.trim().toLowerCase()).filter(Boolean);
 const SESSION_SECRET = process.env.SESSION_SECRET || 'dev-secret-change-me';
+const PUBLIC_BASE_URL = process.env.PUBLIC_BASE_URL ? process.env.PUBLIC_BASE_URL.replace(/\/+$/, '') : '';
 
 module.exports = {
   MAX_FILE_SIZE_BYTES: MAX_FILE_SIZE_MB * 1024 * 1024,
@@ -13,4 +14,5 @@ module.exports = {
   FILE_DIR,
   DENY_EXTENSIONS,
   SESSION_SECRET,
+  PUBLIC_BASE_URL,
 };

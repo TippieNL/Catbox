@@ -3,7 +3,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const url = require('node:url');
 const crypto = require('node:crypto');
-const { MAX_FILE_SIZE_BYTES } = require('./config');
+const { MAX_FILE_SIZE_BYTES, FILE_DIR, PUBLIC_BASE_URL } = require('./config');
 const { readDb, writeDb, nextId } = require('./db');
 const { saveFile, deleteFile, validateFile, ensureStorage } = require('./storage');
 const {
@@ -80,8 +80,9 @@ function serveStoredFile(req, res) {
   const parsed = url.parse(req.url);
   if (!parsed.pathname.startsWith('/files/')) return false;
   const filename = parsed.pathname.replace('/files/', '');
-  const target = path.join(require('./config').FILE_DIR, filename);
-  if (!target.startsWith(require('./config').FILE_DIR)) return false;
+  const target = path.resolve(FILE_DIR, filename);
+  const relativeTarget = path.relative(FILE_DIR, target);
+  if (relativeTarget.startsWith('..') || path.isAbsolute(relativeTarget)) return false;
   if (fs.existsSync(target)) {
     const stream = fs.createReadStream(target);
     res.writeHead(200, { 'Content-Type': 'application/octet-stream' });
@@ -133,6 +134,33 @@ function requireAuth(req) {
   return verifySessionToken(token);
 }
 
+function isSecureRequest(req) {
+  const protoHeader = req.headers['x-forwarded-proto'];
+  if (protoHeader) {
+    const proto = Array.isArray(protoHeader) ? protoHeader[0] : protoHeader;
+    return proto.split(',')[0].trim() === 'https';
+  }
+  return Boolean(req.socket && req.socket.encrypted);
+}
+
+function buildSessionCookie(value, req, options = {}) {
+  const parts = [`session=${value}`];
+  if (options.maxAge !== undefined) parts.push(`Max-Age=${options.maxAge}`);
+  parts.push('HttpOnly', 'Path=/', 'SameSite=Lax');
+  if (isSecureRequest(req)) parts.push('Secure');
+  return parts.join('; ');
+}
+
+function getBaseUrl(req) {
+  if (PUBLIC_BASE_URL) return PUBLIC_BASE_URL;
+  const host = req.headers.host;
+  if (!host) return '';
+  const protoHeader = req.headers['x-forwarded-proto'];
+  const protoValue = Array.isArray(protoHeader) ? protoHeader[0] : protoHeader;
+  const protocol = protoValue ? protoValue.split(',')[0].trim() : isSecureRequest(req) ? 'https' : 'http';
+  return `${protocol}://${host}`;
+}
+
 function handleApi(req, res, parsed) {
   if (req.method === 'POST' && parsed.pathname === '/api/register') {
     return readBody(req)
@@ -140,7 +168,7 @@ function handleApi(req, res, parsed) {
         if (!email || !password) return send(res, 400, { error: 'Email and password required' });
         const user = createUser(email, password);
         const token = createSessionToken(user.id);
-        send(res, 201, { user: { id: user.id, email: user.email } }, { 'Set-Cookie': `session=${token}; HttpOnly; Path=/` });
+        send(res, 201, { user: { id: user.id, email: user.email } }, { 'Set-Cookie': buildSessionCookie(token, req) });
       })
       .catch((err) => send(res, 400, { error: err.message }));
   }
@@ -151,7 +179,7 @@ function handleApi(req, res, parsed) {
         const user = authenticate(email || '', password || '');
         if (!user) return send(res, 401, { error: 'Invalid credentials' });
         const token = createSessionToken(user.id);
-        send(res, 200, { user: { id: user.id, email: user.email } }, { 'Set-Cookie': `session=${token}; HttpOnly; Path=/` });
+        send(res, 200, { user: { id: user.id, email: user.email } }, { 'Set-Cookie': buildSessionCookie(token, req) });
       })
       .catch((err) => send(res, 400, { error: err.message }));
   }
@@ -160,7 +188,7 @@ function handleApi(req, res, parsed) {
     const cookies = parseCookies(req);
     const token = cookies['session'];
     if (token) clearSession(token);
-    return send(res, 204, '', { 'Set-Cookie': 'session=; Max-Age=0; Path=/' });
+    return send(res, 204, '', { 'Set-Cookie': buildSessionCookie('', req, { maxAge: 0 }) });
   }
 
   if (req.method === 'POST' && parsed.pathname === '/api/change-password') {
@@ -277,7 +305,8 @@ function handleApi(req, res, parsed) {
         };
         db.files.push(record);
         writeDb(db);
-        const link = `${req.headers.origin || ''}/files/${storedName}`;
+        const baseUrl = getBaseUrl(req);
+        const link = baseUrl ? `${baseUrl}/files/${storedName}` : `/files/${storedName}`;
         send(res, 201, {
           id,
           file_url: link,
@@ -318,7 +347,8 @@ function handleApi(req, res, parsed) {
         const record = { id: nextId(db.shortLinks), code, originalUrl: longUrl, userId: user ? user.id : null, createdAt: new Date().toISOString() };
         db.shortLinks.push(record);
         writeDb(db);
-        const shortUrl = `${req.headers.origin || ''}/s/${code}`;
+        const baseUrl = getBaseUrl(req);
+        const shortUrl = baseUrl ? `${baseUrl}/s/${code}` : `/s/${code}`;
         send(res, 201, { short_url: shortUrl, code });
       })
       .catch((err) => send(res, 400, { error: err.message }));
