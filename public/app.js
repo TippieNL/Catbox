@@ -13,20 +13,35 @@
     });
   }
 
-  const navToggle = document.querySelector('[data-nav-toggle]');
-  const nav = document.querySelector('[data-nav]');
-  if (navToggle && nav) {
-    navToggle.addEventListener('click', () => {
-      const isOpen = document.body.classList.toggle('nav-open');
-      navToggle.setAttribute('aria-expanded', String(isOpen));
+  function setAuthNav(isAuthed) {
+    document.querySelectorAll('[data-auth="in"]').forEach((el) => {
+      el.hidden = !isAuthed;
     });
-    nav.querySelectorAll('a').forEach((link) => {
-      link.addEventListener('click', () => {
-        document.body.classList.remove('nav-open');
-        navToggle.setAttribute('aria-expanded', 'false');
-      });
+    document.querySelectorAll('[data-auth="out"]').forEach((el) => {
+      el.hidden = isAuthed;
     });
   }
+
+  async function ensureAuthNav() {
+    const logoutButtons = document.querySelectorAll('[data-logout]');
+    if (!logoutButtons.length) return;
+    try {
+      const res = await fetch('/api/me');
+      setAuthNav(res.ok);
+      if (res.ok) {
+        logoutButtons.forEach((button) => {
+          button.addEventListener('click', async (event) => {
+            event.preventDefault();
+            await fetch('/api/logout', { method: 'POST' });
+            window.location.reload();
+          });
+        });
+      }
+    } catch (error) {
+      setAuthNav(false);
+    }
+  }
+  ensureAuthNav();
 
   const dropzones = document.querySelectorAll('[data-dropzone]');
   dropzones.forEach((zone) => {
