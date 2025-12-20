@@ -17,6 +17,7 @@ function init() {
       users: [],
       files: [],
       shortLinks: [],
+      albums: [],
       tokens: [],
     };
     fs.writeFileSync(DB_PATH, JSON.stringify(initial, null, 2));
@@ -26,7 +27,12 @@ function init() {
 function readDb() {
   init();
   const raw = fs.readFileSync(DB_PATH, 'utf-8');
-  return JSON.parse(raw);
+  const data = JSON.parse(raw);
+  if (!data.albums) {
+    data.albums = [];
+    writeDb(data);
+  }
+  return data;
 }
 
 function writeDb(data) {

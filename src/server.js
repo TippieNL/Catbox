@@ -161,6 +161,72 @@ function handleApi(req, res, parsed) {
     return send(res, 200, { user: { id: user.id, email: user.email }, files, links });
   }
 
+  if (req.method === 'GET' && parsed.pathname === '/api/albums') {
+    const user = requireAuth(req);
+    if (!user) return send(res, 401, { error: 'Unauthorized' });
+    const db = readDb();
+    const albums = db.albums.filter((album) => album.ownerUserId === user.id);
+    return send(res, 200, { albums });
+  }
+
+  if (req.method === 'POST' && parsed.pathname === '/api/albums') {
+    const user = requireAuth(req);
+    if (!user) return send(res, 401, { error: 'Unauthorized' });
+    return readBody(req)
+      .then(({ title, description, fileIds }) => {
+        const db = readDb();
+        const now = new Date().toISOString();
+        const record = {
+          id: nextId(db.albums),
+          title: title || '',
+          description: description || '',
+          fileIds: Array.isArray(fileIds) ? fileIds : [],
+          ownerUserId: user.id,
+          createdAt: now,
+          updatedAt: now,
+        };
+        db.albums.push(record);
+        writeDb(db);
+        return send(res, 201, { album: record });
+      })
+      .catch((err) => send(res, 400, { error: err.message }));
+  }
+
+  if (req.method === 'PUT' && parsed.pathname.startsWith('/api/albums/')) {
+    const user = requireAuth(req);
+    if (!user) return send(res, 401, { error: 'Unauthorized' });
+    const id = Number(parsed.pathname.replace('/api/albums/', ''));
+    if (!Number.isInteger(id)) return send(res, 400, { error: 'Invalid album id' });
+    return readBody(req)
+      .then(({ title, description, fileIds }) => {
+        const db = readDb();
+        const album = db.albums.find((item) => item.id === id);
+        if (!album) return send(res, 404, { error: 'Album not found' });
+        if (album.ownerUserId !== user.id) return send(res, 403, { error: 'Forbidden' });
+        if (title !== undefined) album.title = title;
+        if (description !== undefined) album.description = description;
+        if (fileIds !== undefined) album.fileIds = Array.isArray(fileIds) ? fileIds : album.fileIds;
+        album.updatedAt = new Date().toISOString();
+        writeDb(db);
+        return send(res, 200, { album });
+      })
+      .catch((err) => send(res, 400, { error: err.message }));
+  }
+
+  if (req.method === 'DELETE' && parsed.pathname.startsWith('/api/albums/')) {
+    const user = requireAuth(req);
+    if (!user) return send(res, 401, { error: 'Unauthorized' });
+    const id = Number(parsed.pathname.replace('/api/albums/', ''));
+    if (!Number.isInteger(id)) return send(res, 400, { error: 'Invalid album id' });
+    const db = readDb();
+    const albumIndex = db.albums.findIndex((item) => item.id === id);
+    if (albumIndex === -1) return send(res, 404, { error: 'Album not found' });
+    if (db.albums[albumIndex].ownerUserId !== user.id) return send(res, 403, { error: 'Forbidden' });
+    const [removed] = db.albums.splice(albumIndex, 1);
+    writeDb(db);
+    return send(res, 200, { ok: true, album: removed });
+  }
+
   if (req.method === 'POST' && parsed.pathname === '/api/upload') {
     return readBody(req)
       .then(({ filename, content, temporary = false, expiryHours }) => {
