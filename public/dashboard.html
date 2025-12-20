@@ -31,24 +31,24 @@
       <p>View uploads, temporary expiries, and link shortener history.</p>
     </section>
 
-    <section class="card grid">
+    <section class="card grid dashboard-cards">
       <div class="stats" id="stats">
         <div class="card">Loading stats…</div>
       </div>
       <div class="card">
-        <div class="input-row" style="align-items:flex-start; gap:20px;">
-          <div style="flex:1;">
+        <div class="input-row dashboard-auth">
+          <div class="auth-panel">
             <h3>Login</h3>
-            <form id="login-form" class="grid" style="gap:8px;">
+            <form id="login-form" class="grid form-grid-tight auth-form">
               <input type="email" name="email" placeholder="you@example.com" required />
               <input type="password" name="password" placeholder="Password" required />
               <button class="action" type="submit">Login</button>
               <div class="small" data-status></div>
             </form>
           </div>
-          <div style="flex:1;">
+          <div class="auth-panel">
             <h3>Create account</h3>
-            <form id="register-form" class="grid" style="gap:8px;">
+            <form id="register-form" class="grid form-grid-tight auth-form">
               <input type="email" name="email" placeholder="you@example.com" required />
               <input type="password" name="password" placeholder="Password" required />
               <button class="action" type="submit">Register</button>
@@ -59,8 +59,8 @@
       </div>
 
       <div class="card">
-        <div class="input-row" style="justify-content: space-between; align-items:center;">
-          <h3 style="margin:0;">Uploads</h3>
+        <div class="input-row card-header">
+          <h3 class="card-header-title">Uploads</h3>
           <div class="small">Temporary files show expiry and are deleted automatically.</div>
         </div>
         <table class="table">
