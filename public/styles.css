@@ -216,8 +216,9 @@ main {
 
 .input-row {
   display: flex;
-  gap: 8px;
-  align-items: center;
+  gap: 12px;
+  align-items: stretch;
+  flex-direction: column;
   margin: 8px 0;
 }
 
@@ -238,6 +239,38 @@ main {
 .grid {
   display: grid;
   gap: 16px;
+}
+
+.dashboard-cards {
+  gap: 20px;
+}
+
+.dashboard-auth {
+  align-items: stretch;
+  gap: 16px;
+}
+
+.auth-panel {
+  flex: 1;
+  min-width: 0;
+}
+
+.form-grid-tight {
+  gap: 8px;
+}
+
+.auth-form .action {
+  width: 100%;
+  min-height: 44px;
+}
+
+.card-header {
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.card-header-title {
+  margin: 0;
 }
 
 .stats {
@@ -431,9 +464,6 @@ footer {
   header {
     position: static;
   }
-  .input-row {
-    flex-direction: column;
-  }
   .dropzone {
     padding: 18px;
   }
@@ -445,5 +475,50 @@ footer {
   }
   .album-card {
     flex-direction: column;
+  }
+}
+
+@media (min-width: 768px) {
+  .input-row {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .dashboard-cards {
+    gap: 24px;
+  }
+
+  .dashboard-auth {
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .form-grid-tight {
+    gap: 12px;
+  }
+
+  .auth-form .action {
+    width: auto;
+    min-width: 160px;
+  }
+
+  .card-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+@media (min-width: 1024px) {
+  .dashboard-cards {
+    gap: 28px;
+  }
+
+  .card {
+    padding: 24px;
+  }
+
+  .dashboard-auth {
+    gap: 24px;
   }
 }
