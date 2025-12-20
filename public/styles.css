@@ -123,6 +123,25 @@ nav a:hover {
   box-shadow: 0 18px 45px rgba(90, 93, 240, 0.35);
 }
 
+.action.secondary {
+  background: rgba(90, 93, 240, 0.12);
+  color: var(--text);
+  box-shadow: none;
+}
+
+.action.secondary:hover {
+  box-shadow: none;
+  transform: translateY(-1px);
+}
+
+.action.danger {
+  background: #e45252;
+}
+
+.action.danger:hover {
+  box-shadow: 0 14px 32px rgba(228, 82, 82, 0.35);
+}
+
 main {
   padding: 32px 0 80px;
 }
@@ -238,6 +257,67 @@ main {
   padding: 12px;
   border-bottom: 1px solid rgba(90, 93, 240, 0.12);
   text-align: left;
+}
+
+.file-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.file-card {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 16px;
+  background: rgba(90, 93, 240, 0.06);
+  border-radius: 16px;
+  padding: 16px;
+  border: 1px solid rgba(90, 93, 240, 0.12);
+}
+
+.file-select {
+  display: grid;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--muted);
+  align-content: start;
+}
+
+.file-select input {
+  width: 18px;
+  height: 18px;
+}
+
+.file-main {
+  display: grid;
+  gap: 10px;
+}
+
+.file-actions {
+  display: grid;
+  gap: 8px;
+  align-content: start;
+}
+
+.album-grid {
+  display: grid;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.album-card {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(90, 93, 240, 0.12);
+  background: rgba(90, 93, 240, 0.05);
+}
+
+.album-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
 .image-grid {
@@ -356,5 +436,14 @@ footer {
   }
   .dropzone {
     padding: 18px;
+  }
+  .file-card {
+    grid-template-columns: 1fr;
+  }
+  .file-actions {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  }
+  .album-card {
+    flex-direction: column;
   }
 }
