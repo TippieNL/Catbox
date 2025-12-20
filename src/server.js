@@ -25,6 +25,16 @@ const MIME_TYPES = {
   '.png': 'image/png',
   '.svg': 'image/svg+xml',
 };
+const HTML_ALIASES = new Map([
+  ['/api-docs', '/api-docs.html'],
+  ['/contact', '/contact.html'],
+  ['/dashboard', '/dashboard.html'],
+  ['/faq', '/faq.html'],
+  ['/images', '/images.html'],
+  ['/legal', '/legal.html'],
+  ['/temporary', '/temporary.html'],
+  ['/tools', '/tools.html'],
+]);
 
 function send(res, status, data, headers = {}) {
   const body = typeof data === 'string' ? data : JSON.stringify(data);
@@ -252,6 +262,9 @@ function router(req, res) {
   if (parsed.pathname.startsWith('/api/') || parsed.pathname === '/shorten') {
     const handled = handleApi(req, res, parsed);
     if (handled !== false) return;
+  }
+  if (HTML_ALIASES.has(parsed.pathname)) {
+    req.url = `${HTML_ALIASES.get(parsed.pathname)}${parsed.search || ''}`;
   }
   if (serveStatic(req, res)) return;
   sendHtml(res, 404, '<h1>Not found</h1>');
