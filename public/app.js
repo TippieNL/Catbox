@@ -13,6 +13,21 @@
     });
   }
 
+  const navToggle = document.querySelector('[data-nav-toggle]');
+  const nav = document.querySelector('[data-nav]');
+  if (navToggle && nav) {
+    navToggle.addEventListener('click', () => {
+      const isOpen = document.body.classList.toggle('nav-open');
+      navToggle.setAttribute('aria-expanded', String(isOpen));
+    });
+    nav.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        document.body.classList.remove('nav-open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+
   const dropzones = document.querySelectorAll('[data-dropzone]');
   dropzones.forEach((zone) => {
     const input = zone.querySelector('input[type="file"]');
