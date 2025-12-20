@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Catbox-style Host</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="brand-mark">C</div>
+      <span>Catbox-style Host</span>
+    </div>
+    <nav>
+      <a href="/index.html">Upload</a>
+      <a href="/temporary.html">Temporary</a>
+      <a href="/dashboard.html">Dashboard</a>
+      <a href="/images.html">Images</a>
+      <a href="/faq.html">FAQ</a>
+      <a href="/tools.html">Tools</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/legal.html">Legal</a>
+      <a href="/api-docs.html">API Docs</a>
+      <button id="theme-toggle" class="action" type="button">🌙 Dark</button>
+    </nav>
+  </header>
+  <main>
+    <section class="hero">
+      <h1>Fast, simple file hosting</h1>
+      <p>Drop a file, get a direct link. No fuss. Anonymous uploads supported with clean, modern presentation.</p>
+    </section>
+
+    <section class="card upload-card">
+      <form data-upload-form>
+        <div class="dropzone" data-dropzone>
+          <input type="file" hidden />
+          <strong>Drop files here or click to browse</strong>
+          <div class="small">Max 200 MB by default · All types allowed except .exe, .bat, .cmd, .sh</div>
+        </div>
+        <div class="info-row" style="margin-top:12px;">
+          <span>Permalink upload</span>
+          <span class="badge">Permanent</span>
+        </div>
+        <div class="input-row">
+          <button class="action" type="submit">Upload</button>
+          <div data-status class="small"></div>
+        </div>
+        <div data-result></div>
+      </form>
+    </section>
+
+    <section class="card" style="margin-top:18px;">
+      <h3>Need a quick short link?</h3>
+      <form id="shorten-form" class="input-row">
+        <input type="url" name="url" placeholder="https://example.com/very/long/url" required />
+        <button class="action" type="submit">Shorten</button>
+      </form>
+      <div class="small" data-status></div>
+    </section>
+  </main>
+  <footer>Built for lightweight sharing. Temporary uploads available via the dedicated page.</footer>
+  <script src="/app.js"></script>
+</body>
+</html>

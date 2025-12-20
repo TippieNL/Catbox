@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard · Catbox-style Host</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="brand-mark">C</div>
+      <span>Catbox-style Host</span>
+    </div>
+    <nav>
+      <a href="/index.html">Upload</a>
+      <a href="/temporary.html">Temporary</a>
+      <a href="/dashboard.html">Dashboard</a>
+      <a href="/images.html">Images</a>
+      <a href="/faq.html">FAQ</a>
+      <a href="/tools.html">Tools</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/legal.html">Legal</a>
+      <a href="/api-docs.html">API Docs</a>
+      <button id="theme-toggle" class="action" type="button">🌙 Dark</button>
+    </nav>
+  </header>
+  <main class="grid">
+    <section class="hero">
+      <h1>Your dashboard</h1>
+      <p>View uploads, temporary expiries, and link shortener history.</p>
+    </section>
+
+    <section class="card grid">
+      <div class="stats" id="stats">
+        <div class="card">Loading stats…</div>
+      </div>
+      <div class="card">
+        <div class="input-row" style="align-items:flex-start; gap:20px;">
+          <div style="flex:1;">
+            <h3>Login</h3>
+            <form id="login-form" class="grid" style="gap:8px;">
+              <input type="email" name="email" placeholder="you@example.com" required />
+              <input type="password" name="password" placeholder="Password" required />
+              <button class="action" type="submit">Login</button>
+              <div class="small" data-status></div>
+            </form>
+          </div>
+          <div style="flex:1;">
+            <h3>Create account</h3>
+            <form id="register-form" class="grid" style="gap:8px;">
+              <input type="email" name="email" placeholder="you@example.com" required />
+              <input type="password" name="password" placeholder="Password" required />
+              <button class="action" type="submit">Register</button>
+              <div class="small" data-status></div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="input-row" style="justify-content: space-between; align-items:center;">
+          <h3 style="margin:0;">Uploads</h3>
+          <div class="small">Temporary files show expiry and are deleted automatically.</div>
+        </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Size</th>
+              <th>Created</th>
+              <th>Type</th>
+              <th>Expiry</th>
+              <th>Link</th>
+            </tr>
+          </thead>
+          <tbody id="file-table">
+            <tr><td colspan="6">Loading…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+  <footer>Dashboard shows your uploads and shortened links when logged in.</footer>
+  <script src="/app.js"></script>
+</body>
+</html>

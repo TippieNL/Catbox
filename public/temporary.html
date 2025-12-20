@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Temporary Upload · Catbox-style Host</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="brand-mark">C</div>
+      <span>Catbox-style Host</span>
+    </div>
+    <nav>
+      <a href="/index.html">Upload</a>
+      <a href="/temporary.html">Temporary</a>
+      <a href="/dashboard.html">Dashboard</a>
+      <a href="/images.html">Images</a>
+      <a href="/faq.html">FAQ</a>
+      <a href="/tools.html">Tools</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/legal.html">Legal</a>
+      <a href="/api-docs.html">API Docs</a>
+      <button id="theme-toggle" class="action" type="button">🌙 Dark</button>
+    </nav>
+  </header>
+  <main>
+    <section class="hero">
+      <h1>Temporary uploads</h1>
+      <p>Files automatically expire. Perfect for one-off sharing with clear expiry badges.</p>
+    </section>
+
+    <section class="card upload-card">
+      <form data-upload-form data-temporary="true">
+        <div class="dropzone" data-dropzone>
+          <input type="file" hidden />
+          <strong>Drop files here or click to browse</strong>
+          <div class="small">Expires automatically · Max 200 MB</div>
+        </div>
+        <div class="input-row" style="margin-top:12px;">
+          <select name="expiry">
+            <option value="1">Expire in 1 hour</option>
+            <option value="12">Expire in 12 hours</option>
+            <option value="24">Expire in 24 hours</option>
+            <option value="72">Expire in 72 hours</option>
+          </select>
+          <button class="action" type="submit">Upload temporary</button>
+        </div>
+        <div class="small" data-status></div>
+        <div data-result></div>
+      </form>
+    </section>
+    <div class="alert">Temporary files are visually marked and cleaned up automatically on expiry.</div>
+  </main>
+  <footer>Direct links without clutter. Use temporary uploads for expiring content.</footer>
+  <script src="/app.js"></script>
+</body>
+</html>

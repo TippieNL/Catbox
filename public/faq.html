@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FAQ · Catbox-style Host</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="brand-mark">C</div>
+      <span>Catbox-style Host</span>
+    </div>
+    <nav>
+      <a href="/index.html">Upload</a>
+      <a href="/temporary.html">Temporary</a>
+      <a href="/dashboard.html">Dashboard</a>
+      <a href="/images.html">Images</a>
+      <a href="/faq.html">FAQ</a>
+      <a href="/tools.html">Tools</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/legal.html">Legal</a>
+      <a href="/api-docs.html">API Docs</a>
+      <button id="theme-toggle" class="action" type="button">🌙 Dark</button>
+    </nav>
+  </header>
+  <main class="grid">
+    <section class="hero">
+      <h1>FAQ</h1>
+      <p>Policies, limits, and privacy basics.</p>
+    </section>
+
+    <section class="card grid" style="gap:14px;">
+      <div>
+        <h3>How large can files be?</h3>
+        <p>The default cap is 200 MB per file. Change MAX_FILE_SIZE_MB in the environment to adjust.</p>
+      </div>
+      <div>
+        <h3>Which file types are disallowed?</h3>
+        <p>Executables by default (.exe, .bat, .cmd, .sh). Configure DENY_EXTENSIONS to tighten further.</p>
+      </div>
+      <div>
+        <h3>How long do temporary uploads last?</h3>
+        <p>You can pick 1h, 12h, 24h, or 72h. Files purge automatically once expired.</p>
+      </div>
+      <div>
+        <h3>Do I need an account?</h3>
+        <p>No. Anonymous uploads work instantly. Accounts add dashboards, history, and short-link tracking.</p>
+      </div>
+      <div>
+        <h3>Is there an API?</h3>
+        <p>Yes. Use POST /api/upload for programmatic uploads and POST /api/delete with the delete token.</p>
+      </div>
+    </section>
+  </main>
+  <footer>Minimal rules, clear limits, transparent expirations.</footer>
+  <script src="/app.js"></script>
+</body>
+</html>
