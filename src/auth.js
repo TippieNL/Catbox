@@ -67,6 +67,18 @@ function clearSession(token) {
   writeDb(db);
 }
 
+function changePassword(userId, currentPassword, newPassword) {
+  const db = readDb();
+  const user = db.users.find((u) => u.id === userId);
+  if (!user) throw new Error('User not found');
+  if (!verifyPassword(currentPassword, user.password)) {
+    throw new Error('Current password is incorrect');
+  }
+  user.password = hashPassword(newPassword);
+  writeDb(db);
+  return user;
+}
+
 module.exports = {
   hashPassword,
   verifyPassword,
@@ -75,4 +87,5 @@ module.exports = {
   createSessionToken,
   verifySessionToken,
   clearSession,
+  changePassword,
 };

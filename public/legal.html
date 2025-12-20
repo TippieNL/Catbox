@@ -8,9 +8,26 @@
 </head>
 <body>
   <header>
-    <div class="brand">
-      <div class="brand-mark">C</div>
-      <span>Catbox-style Host</span>
+    <div class="container header-inner">
+      <div class="brand">
+        <div class="brand-mark">C</div>
+        <span>Catbox-style Host</span>
+      </div>
+      <button class="nav-toggle" type="button" data-nav-toggle aria-controls="primary-nav" aria-expanded="false">
+        ☰ Menu
+      </button>
+      <nav id="primary-nav" data-nav>
+        <a href="/index.html">Upload</a>
+        <a href="/temporary.html">Temporary</a>
+        <a href="/dashboard.html">Dashboard</a>
+        <a href="/images.html">Images</a>
+        <a href="/faq.html">FAQ</a>
+        <a href="/tools.html">Tools</a>
+        <a href="/contact.html">Contact</a>
+        <a href="/legal.html">Legal</a>
+        <a href="/api-docs.html">API Docs</a>
+        <button id="theme-toggle" class="action" type="button">🌙 Dark</button>
+      </nav>
     </div>
     <nav>
       <a href="/index.html">Upload</a>
@@ -28,7 +45,7 @@
       <button id="theme-toggle" class="action" type="button">🌙 Dark</button>
     </nav>
   </header>
-  <main class="grid">
+  <main class="container grid">
     <section class="hero">
       <h1>Terms & acceptable use</h1>
       <p>Plain-language guardrails for uploading and linking.</p>
