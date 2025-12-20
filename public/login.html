@@ -1,0 +1,51 @@
+<!-- Wireframe: header/nav, hero intro, login card with form + signup link, footer -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login · Catbox-style Host</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="brand-mark">C</div>
+      <span>Catbox-style Host</span>
+    </div>
+    <nav>
+      <a href="/index.html">Upload</a>
+      <a href="/temporary.html">Temporary</a>
+      <a href="/dashboard.html">Dashboard</a>
+      <a href="/images.html">Images</a>
+      <a href="/faq.html">FAQ</a>
+      <a href="/tools.html">Tools</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/legal.html">Legal</a>
+      <a href="/api-docs.html">API Docs</a>
+      <button id="theme-toggle" class="action" type="button">🌙 Dark</button>
+    </nav>
+  </header>
+  <main>
+    <section class="hero">
+      <h1>Log in to your account</h1>
+      <p>Access your uploads, stats, and link history in one place.</p>
+    </section>
+
+    <section class="card" style="max-width:480px;">
+      <h3>Login</h3>
+      <form id="login-form" class="grid" style="gap:8px;">
+        <input type="email" name="email" placeholder="you@example.com" required />
+        <input type="password" name="password" placeholder="Password" required />
+        <button class="action" type="submit">Login</button>
+        <div class="small" data-status></div>
+      </form>
+      <div class="small" style="margin-top:12px;">
+        No account? <a href="/signup">Sign up</a>
+      </div>
+    </section>
+  </main>
+  <footer>Use your credentials to see saved uploads and stats.</footer>
+  <script src="/app.js"></script>
+</body>
+</html>
