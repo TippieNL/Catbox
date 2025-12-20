@@ -147,6 +147,53 @@
   }
   loadDashboard();
 
+  async function loadImageGallery() {
+    const grid = document.querySelector('#image-grid');
+    if (!grid) return;
+    const res = await fetch('/api/me');
+    if (!res.ok) {
+      grid.innerHTML = '<div class="card">Log in to see your images.</div>';
+      return;
+    }
+    const data = await res.json();
+    const imageFiles = data.files.filter((file) =>
+      /\.(png|jpe?g|gif|webp|bmp|svg)$/i.test(file.storedName || file.originalName)
+    );
+    if (!imageFiles.length) {
+      grid.innerHTML = '<div class="card">No image uploads yet.</div>';
+      return;
+    }
+    grid.innerHTML = imageFiles
+      .map((file) => {
+        const url = `/files/${file.storedName}`;
+        return `
+        <div class="image-card">
+          <div class="image-frame">
+            <img src="${url}" alt="${file.originalName}" loading="lazy" />
+          </div>
+          <div class="image-meta">
+            <div class="small">${file.originalName}</div>
+            <a href="${url}" target="_blank" rel="noopener">Open image</a>
+            <div class="input-row">
+              <input value="${url}" readonly />
+              <button class="action" data-copy="${url}">Copy</button>
+            </div>
+          </div>
+        </div>`;
+      })
+      .join('');
+    grid.querySelectorAll('[data-copy]').forEach((button) => {
+      button.addEventListener('click', () => {
+        navigator.clipboard.writeText(button.dataset.copy);
+        button.textContent = 'Copied';
+        setTimeout(() => {
+          button.textContent = 'Copy';
+        }, 1200);
+      });
+    });
+  }
+  loadImageGallery();
+
   const shortenForm = document.querySelector('#shorten-form');
   if (shortenForm) {
     shortenForm.addEventListener('submit', async (e) => {

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Contact · Catbox-style Host</title>
+  <title>Your images · Catbox-style Host</title>
   <link rel="stylesheet" href="/styles.css" />
 </head>
 <body>
@@ -27,21 +27,21 @@
   </header>
   <main class="grid">
     <section class="hero">
-      <h1>Contact</h1>
-      <p>Drop a message about abuse, takedowns, or collaboration.</p>
+      <h1>Your uploaded images</h1>
+      <p>Preview image uploads and copy their direct links.</p>
     </section>
 
     <section class="card">
-      <form class="grid" style="gap:10px;">
-        <input type="text" name="name" placeholder="Your name" required />
-        <input type="email" name="email" placeholder="you@example.com" required />
-        <textarea name="message" rows="4" placeholder="Message" required></textarea>
-        <button class="action" type="button" onclick="this.textContent='Sent!';">Send</button>
-        <div class="small">Form is a front-end stub. Wire it to your email provider or ticketing system.</div>
-      </form>
+      <div class="input-row" style="justify-content: space-between; align-items:center;">
+        <h3 style="margin:0;">Image gallery</h3>
+        <div class="small">Log in to see your images.</div>
+      </div>
+      <div id="image-grid" class="image-grid">
+        <div class="card">Loading…</div>
+      </div>
     </section>
   </main>
-  <footer>We respond quickly to abuse and DMCA requests.</footer>
+  <footer>Images page shows your uploaded media with direct links.</footer>
   <script src="/app.js"></script>
 </body>
 </html>

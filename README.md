@@ -20,6 +20,14 @@ Lightweight Node-powered recreation of catbox.moe with anonymous uploads, option
    ```
 5. Open http://localhost:3000 to use the app.
 
+## Termux quick start (Android)
+1. Clone the repo on your device.
+2. From the project root, run:
+   ```bash
+   ./termux-start.sh
+   ```
+   The script installs Node.js if needed, initializes `.env`, prepares storage folders, and starts the server.
+
 ## Configuration
 Environment variables:
 - `PORT` (default: 3000)
