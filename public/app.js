@@ -94,8 +94,8 @@
 
   async function ensureAuthForms() {
     const login = document.querySelector('#login-form');
-    const register = document.querySelector('#register-form');
-    if (!login && !register) return;
+    const signup = document.querySelector('#signup-form');
+    if (!login && !signup) return;
     function handle(form, endpoint) {
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -108,12 +108,12 @@
         });
         const data = await res.json();
         const statusEl = form.querySelector('[data-status]');
-        statusEl.textContent = data.error || 'Success';
-        if (res.ok) setTimeout(() => window.location.reload(), 600);
+        statusEl.textContent = data.error || 'Success. Redirecting…';
+        if (res.ok) setTimeout(() => (window.location.href = '/dashboard'), 600);
       });
     }
     if (login) handle(login, '/api/login');
-    if (register) handle(register, '/api/register');
+    if (signup) handle(signup, '/api/register');
   }
   ensureAuthForms();
 
