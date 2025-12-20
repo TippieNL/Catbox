@@ -12,6 +12,7 @@ const {
   createSessionToken,
   verifySessionToken,
   clearSession,
+  changePassword,
 } = require('./auth');
 
 ensureStorage();
@@ -150,6 +151,20 @@ function handleApi(req, res, parsed) {
     const token = cookies['session'];
     if (token) clearSession(token);
     return send(res, 204, '', { 'Set-Cookie': 'session=; Max-Age=0; Path=/' });
+  }
+
+  if (req.method === 'POST' && parsed.pathname === '/api/change-password') {
+    return readBody(req)
+      .then(({ currentPassword, newPassword }) => {
+        const user = requireAuth(req);
+        if (!user) return send(res, 401, { error: 'Unauthorized' });
+        if (!currentPassword || !newPassword) {
+          return send(res, 400, { error: 'Current and new password required' });
+        }
+        changePassword(user.id, currentPassword, newPassword);
+        return send(res, 200, { ok: true });
+      })
+      .catch((err) => send(res, 400, { error: err.message }));
   }
 
   if (req.method === 'GET' && parsed.pathname === '/api/me') {
