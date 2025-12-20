@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Contact · Catbox-style Host</title>
+  <title>Sign up · Catbox-style Host</title>
   <link rel="stylesheet" href="/styles.css" />
 </head>
 <body>
@@ -27,21 +27,21 @@
   </header>
   <main class="grid">
     <section class="hero">
-      <h1>Contact</h1>
-      <p>Drop a message about abuse, takedowns, or collaboration.</p>
+      <h1>Create your account</h1>
+      <p>Register once to track uploads and manage short links.</p>
     </section>
-
-    <section class="card">
-      <form class="grid" style="gap:10px;">
-        <input type="text" name="name" placeholder="Your name" required />
+    <section class="card" style="max-width:480px;">
+      <h3>Create account</h3>
+      <form id="register-form" class="grid" style="gap:8px;">
         <input type="email" name="email" placeholder="you@example.com" required />
-        <textarea name="message" rows="4" placeholder="Message" required></textarea>
-        <button class="action" type="button" onclick="this.textContent='Sent!';">Send</button>
-        <div class="small">Form is a front-end stub. Wire it to your email provider or ticketing system.</div>
+        <input type="password" name="password" placeholder="Password" required />
+        <button class="action" type="submit">Register</button>
+        <div class="small" data-status></div>
       </form>
+      <p class="small" style="margin-top:12px;">Already have an account? <a href="/login">Log in</a>.</p>
     </section>
   </main>
-  <footer>We respond quickly to abuse and DMCA requests.</footer>
+  <footer>Register to unlock your dashboard.</footer>
   <script src="/app.js"></script>
 </body>
 </html>
