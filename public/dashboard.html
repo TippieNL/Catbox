@@ -31,53 +31,83 @@
       <p>View uploads, temporary expiries, and link shortener history.</p>
     </section>
 
-    <section class="card grid">
+    <!-- Wireframe: Files -->
+    <section class="card">
+      <div class="input-row" style="justify-content: space-between; align-items:center;">
+        <h2 style="margin:0;">Files</h2>
+        <div class="small">Temporary files show expiry and are deleted automatically.</div>
+      </div>
       <div class="stats" id="stats">
         <div class="card">Loading stats…</div>
       </div>
-      <div class="card">
-        <div class="input-row" style="align-items:flex-start; gap:20px;">
-          <div style="flex:1;">
-            <h3>Login</h3>
-            <form id="login-form" class="grid" style="gap:8px;">
-              <input type="email" name="email" placeholder="you@example.com" required />
-              <input type="password" name="password" placeholder="Password" required />
-              <button class="action" type="submit">Login</button>
-              <div class="small" data-status></div>
-            </form>
-          </div>
-          <div style="flex:1;">
-            <h3>Create account</h3>
-            <form id="register-form" class="grid" style="gap:8px;">
-              <input type="email" name="email" placeholder="you@example.com" required />
-              <input type="password" name="password" placeholder="Password" required />
-              <button class="action" type="submit">Register</button>
-              <div class="small" data-status></div>
-            </form>
-          </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Size</th>
+            <th>Created</th>
+            <th>Type</th>
+            <th>Expiry</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody id="file-table">
+          <tr><td colspan="6">No files yet. Uploads will appear here.</td></tr>
+        </tbody>
+      </table>
+      <div class="small">Empty state: No uploads found for this account.</div>
+    </section>
+
+    <!-- Wireframe: Albums -->
+    <section class="card">
+      <div class="input-row" style="justify-content: space-between; align-items:center;">
+        <h2 style="margin:0;">Albums</h2>
+        <div class="small">Group uploads into shareable collections.</div>
+      </div>
+      <div class="grid" style="gap:12px;">
+        <div class="card">
+          <h3 style="margin-top:0;">Your albums</h3>
+          <ul class="grid" style="gap:8px; margin:0; padding-left:18px;">
+            <li>Empty state: Create your first album to organize files.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3 style="margin-top:0;">Create an album</h3>
+          <form id="album-form" class="grid" style="gap:8px;">
+            <input type="text" name="album-name" placeholder="Album name" />
+            <textarea name="album-description" rows="3" placeholder="Description (optional)"></textarea>
+            <button class="action" type="submit">Create album</button>
+            <div class="small" data-status></div>
+          </form>
         </div>
       </div>
+    </section>
 
-      <div class="card">
-        <div class="input-row" style="justify-content: space-between; align-items:center;">
-          <h3 style="margin:0;">Uploads</h3>
-          <div class="small">Temporary files show expiry and are deleted automatically.</div>
+    <!-- Wireframe: Account -->
+    <section class="card">
+      <div class="input-row" style="justify-content: space-between; align-items:center;">
+        <h2 style="margin:0;">Account</h2>
+        <div class="small">Manage your email and security settings.</div>
+      </div>
+      <div class="grid" style="gap:12px;">
+        <div class="card">
+          <h3 style="margin-top:0;">Email</h3>
+          <div class="small">you@example.com</div>
         </div>
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Size</th>
-              <th>Created</th>
-              <th>Type</th>
-              <th>Expiry</th>
-              <th>Link</th>
-            </tr>
-          </thead>
-          <tbody id="file-table">
-            <tr><td colspan="6">Loading…</td></tr>
-          </tbody>
-        </table>
+        <div class="card">
+          <h3 style="margin-top:0;">Password</h3>
+          <form id="password-form" class="grid" style="gap:8px;">
+            <input type="password" name="current-password" placeholder="Current password" />
+            <input type="password" name="new-password" placeholder="New password (optional)" />
+            <button class="action" type="submit">Update password</button>
+            <div class="small" data-status></div>
+          </form>
+        </div>
+        <div class="card">
+          <h3 style="margin-top:0;">Session</h3>
+          <button class="action" type="button">Log out</button>
+          <div class="small">Empty state: No active session.</div>
+        </div>
       </div>
     </section>
   </main>
