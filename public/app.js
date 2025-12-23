@@ -125,7 +125,8 @@
   async function ensureAuthForms() {
     const login = document.querySelector('#login-form');
     const signup = document.querySelector('#signup-form');
-    if (!login && !signup) return;
+    const register = document.querySelector('#register-form');
+    if (!login && !signup && !register) return;
     function handle(form, endpoint) {
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -144,6 +145,7 @@
     }
     if (login) handle(login, '/api/login');
     if (signup) handle(signup, '/api/register');
+    if (register) handle(register, '/api/register');
   }
   ensureAuthForms();
 
