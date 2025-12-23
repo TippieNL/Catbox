@@ -8,11 +8,12 @@ const { readDb, writeDb, nextId } = require('./db');
 const { saveFile, deleteFile, validateFile, ensureStorage } = require('./storage');
 const {
   createUser,
-  authenticate,
   createSessionToken,
   verifySessionToken,
   clearSession,
   changePassword,
+  findUserByEmail,
+  verifyPassword,
 } = require('./auth');
 
 ensureStorage();
@@ -176,8 +177,12 @@ function handleApi(req, res, parsed) {
   if (req.method === 'POST' && parsed.pathname === '/api/login') {
     return readBody(req)
       .then(({ email, password }) => {
-        const user = authenticate(email || '', password || '');
-        if (!user) return send(res, 401, { error: 'Invalid credentials' });
+        if (!email || !password) return send(res, 400, { error: 'Email and password required' });
+        const user = findUserByEmail(email);
+        if (!user) return send(res, 401, { error: 'Email not registered' });
+        if (!verifyPassword(password, user.password)) {
+          return send(res, 401, { error: 'Incorrect password' });
+        }
         const token = createSessionToken(user.id);
         send(res, 200, { user: { id: user.id, email: user.email } }, { 'Set-Cookie': buildSessionCookie(token, req) });
       })

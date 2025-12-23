@@ -37,6 +37,11 @@ function authenticate(email, password) {
   return user;
 }
 
+function findUserByEmail(email) {
+  const db = readDb();
+  return db.users.find((u) => u.email.toLowerCase() === email.toLowerCase()) || null;
+}
+
 function createSessionToken(userId) {
   const token = crypto.randomBytes(24).toString('hex');
   const signature = crypto.createHmac('sha256', SESSION_SECRET).update(token).digest('hex');
@@ -84,6 +89,7 @@ module.exports = {
   verifyPassword,
   createUser,
   authenticate,
+  findUserByEmail,
   createSessionToken,
   verifySessionToken,
   clearSession,
